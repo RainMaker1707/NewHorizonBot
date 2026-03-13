@@ -1,0 +1,34 @@
+{
+  "name": "newhorizonbot",
+  "version": "1.0.0",
+  "description": "Discord Bot for New Horizon DayZ RP server",
+  "keywords": [
+    "Discord",
+    "DiscordJS",
+    "NodeJS",
+    "Discord",
+    "Node",
+    "JavaScript",
+    "Bot",
+    "Bots"
+  ],
+  "homepage": "https://github.com/RainMaker1707/NewHorizonBot#readme",
+  "bugs": {
+    "url": "https://github.com/RainMaker1707/NewHorizonBot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RainMaker1707/NewHorizonBot.git"
+  },
+  "license": "MIT",
+  "author": "RainMaker1707",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "fs": "^0.0.1-security"
+  }
+}
