@@ -20,7 +20,11 @@ Discord Bot for the DayZ RP French server 'New Horizon'
 - MongoDB
 
 
+## What is done
+- Ping command
+- BAsic stdout logger
+
+
 ## What I am currently doing
-I work on the ping functionality and basic configuration to have a simple answering to /ping
-
-
+- Logs file and rotative logger
+- Whitelist
