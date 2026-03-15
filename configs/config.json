@@ -1,4 +1,8 @@
 {
-    "clientId": "1480664273570234621",
-    "guildId": "326426917521588226"
+    "Version" : "0.1.2",
+    "DBName": "NewHorizon",
+    "WLTableName": "whitelist",
+    "WLAccessRolesNameList": ["Administrateurs", "Moderateurs", "Guides", "Developpeurs"],
+    "WLAccessRolesList": ["481841732812800010", "1326141589545947147", "1326144493401018378", "1326184088037625917"],
+    "WLRole": "481841880389124126"
 }
