@@ -1,15 +1,15 @@
 // Discord related import
-const DS = require('discord.js');
 const { Client, GatewayIntentBits, Partials, REST, Routes } = require('discord.js');
 
 
 // External dependancies except discord related
-const fs = require('node:fs');
+const { readdirSync } = require('fs');
+const { MongoClient } = require('mongodb');
 
 
 // Internale dependancies
-const CFG = require('./configs/config.json');
-const SECRET = require('./configs/secret.json');
+const SECRET =  require('./configs/secret.json');
+const { switchCommand } = require('./libs/commandSwitch');
 
 
 let bot = new Client({intents: [
@@ -28,11 +28,12 @@ let bot = new Client({intents: [
 
 
 const rest = new REST({version: '10'}).setToken(SECRET.token);
+const DB = new MongoClient('mongodb://127.0.0.1:27017')
 
 
 // Commands auto-loads from ./commands directory
 const commands = [];
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     commands.push(command);
@@ -42,7 +43,7 @@ for (const file of commandFiles) {
     try {
         console.log('Refreshing application (/) commands.');
         await rest.put(
-            Routes.applicationGuildCommands(CFG.clientId, CFG.guildId),
+            Routes.applicationGuildCommands(SECRET.clientId, SECRET.guildId),
             { body: commands }
         );
         console.log('Successfully reloaded application (/) commands.');
@@ -61,8 +62,7 @@ bot.on("interactionCreate", async (interaction) => {
     if(!interaction.isCommand()) return;
     const command = interaction.commandName;
     console.log(`Command received ${command} from ${interaction.user.displayName} id: ${interaction.user}`);
-    switch(command){
-        case "ping": try { interaction.reply("Pong! The bot is alive!"); } catch(err) {console.error(err)} break;
-        case _: console.log("Not implement command error! (Should never happens)")
-    }
+    switchCommand(command, bot, interaction, DB, ()=>{ 
+        console.log(`Switch for command ${command} has been run succcesfully for ${interaction.user.displayName}: ${interaction.user}`) 
+    });
 })
