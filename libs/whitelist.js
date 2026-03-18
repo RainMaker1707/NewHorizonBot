@@ -7,7 +7,7 @@ const { userHasRole } = require("../utilitaries/userHasRole")
 
 
 module.exports = {
-    whitelistCmd: (bot, interaction, DB, callback) => {
+    whitelistCmd: (interaction, DB) => {
         if(!userHasRole(interaction, CFG.WLAccessRolesList)){
             interaction.reply("You do not have enough access rights to make this action.")
             return
