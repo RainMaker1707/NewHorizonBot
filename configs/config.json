@@ -1,8 +1,44 @@
 {
     "Version" : "0.1.2",
     "DBName": "NewHorizon",
+
+    "BackgroundAccessRolesNameList": ["Administrateurs", "Moderateurs", "Guides", "Developpeurs"],
+    "BackgroundAccessRolesList": ["481841732812800010", "1326141589545947147", "1326144493401018378", "1326184088037625917"],
+    "BackgroundTable": "background",
+
+    "BotUsername": "New Horizon Bot",
+
+    "DayZOnlinePath": "../test_data/online.txt",
+
+    "MongoDBURL": "mongodb://127.0.0.1:27017",
+
+    "TransmissionChannel": "1480327812983558248",
+    "TransmissionColor": "#000000",
+    "TransmissionMinutesTTL": "5",
+    "BANNED_WORDS_TRANSMISSION": [
+        "://",
+        "<",
+        ">",
+        "$%",
+        ";",
+        "@",
+        ":",
+        "www",
+        "http",
+        "https"
+    ],
+
+    "VoteChannel": "1338558828849139884",
+    "VoteMessage": "📩 N'oubliez pas de votez pour le serveur ➡️ [TopServer: New Horizon Rolelay](https://top-serveurs.net/dayz/new-horizon-roleplay) \n Merci à vous! 💜",
+
+    "WarningAccessRolesNameList": ["Administrateurs", "Moderateurs", "Developpeurs"],
+    "WarningAccessRolesList": ["481841732812800010", "1326141589545947147", "1326184088037625917"],
+    "WarningTable": "warnings",
+
     "WLTableName": "whitelist",
     "WLAccessRolesNameList": ["Administrateurs", "Moderateurs", "Guides", "Developpeurs"],
     "WLAccessRolesList": ["481841732812800010", "1326141589545947147", "1326144493401018378", "1326184088037625917"],
-    "WLRole": "481841880389124126"
+    "WLRole": "481841880389124126",
+
+    "__EOF_JSON_NOT_INTENDED_FOR_EXPORT":  "just to get the ',' separated for each field, easier for automatisation"
 }
