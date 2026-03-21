@@ -4,27 +4,36 @@ Discord Bot for the DayZ RP French server 'New Horizon'
 
 ## Features
 - [X] Ping
-- [ ] Whitelist
+- [X] Whitelist (TODO link to DayZ with whitelist.txt)
+- [X] Transmissions (TODO link with voiceChannel)
+- [X] Players counter in status (TODO link with DayZ)
+- [X] Welcome message
+- [ ] Background
+- [ ] Warnings
+- [ ] Banlist
 - [ ] Ticketing
-- [ ] Transmissions
-- [ ] Players counter in status
-- [ ] Welcome message
+
 - [ ] Statistics command
 - [ ] Mandatory pesence on discord for ingame players
-- [ ] Helps channel
 
 
 ## Dependancies
-- NodeJS
+- NodeJS + NPM or another packages manager
 - DiscordJS
-- MongoDB
+- MongoDB community
 
 
 ## What is done
 - Ping command
-- BAsic stdout logger
+- Basic stdout logger
+- Basic Transmission without voicechannel check
+- WL without DayZ interaction
+- Status without DayZ interaction
+- Welcome message
+- Command shut-up-mamat
 
 
 ## What I am currently doing
 - Logs file and rotative logger
-- Whitelist
+- Warnings
+- Background

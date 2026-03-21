@@ -12,10 +12,11 @@ const { MongoClient } = require('mongodb');
 const SECRET =  require('./configs/secret.json');
 const CFG = require("./configs/config.json")
 const { switchCommand } = require('./libs/commandSwitch');
-const { sendMessage } = require("./utilitaries/sendMessage");
+const { sendMessage, sendEmbed } = require("./utilitaries/sendMessage");
 const { isWhitelist } = require('./utilitaries/whitelist');
 const { obfuscateMessage, filterMessage } = require("./utilitaries/transmission")
-const { statusUpdater } = require("./utilitaries/tools")
+const { statusUpdater } = require("./utilitaries/tools");
+const { welcomeEmbed } = require('./utilitaries/welcome');
 
 
 let bot = new Client({intents: [
@@ -35,7 +36,6 @@ let bot = new Client({intents: [
 
 const rest = new REST({version: '10'}).setToken(SECRET.token);
 const DB = new MongoClient(CFG.MongoDBURL)
-const WEBHOOK = new WebhookClient({url: SECRET.WebHookURL})
 
 
 // Commands auto-loads from ./commands directory
@@ -43,9 +43,9 @@ const commands = [];
 const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
+    console.log("Reloaded: " + command.name)
     commands.push(command);
 }
-
 
 (async () => {
     try {
@@ -66,12 +66,11 @@ for (const file of commandFiles) {
 bot.login(SECRET.token).then(async ()=> {
     console.log(`Bot is now live: ${bot.user.tag}`);
     
-    
     //send a message for topserveur votes in discussion channel hrp
-    //sendMessage(bot, CFG.VoteChannel, CFG.VoteMessage)
+    //sendMessage(bot, CFG.Channels.Vote, CFG.VoteMessage)
     setInterval(()=>{
         console.log("Entered interval")
-        sendMessage(bot, CFG.VoteChannel, CFG.VoteMessage)
+        sendMessage(bot, CFG.Channels.Vote, CFG.VoteMessage)
     }, 3600000) //  ms interval => 1h
 
     setInterval(() => statusUpdater(bot), 5000)
@@ -83,27 +82,48 @@ bot.on("interactionCreate", async (interaction) => {
     if(!interaction.isCommand()) return;
     const command = interaction.commandName;
     console.log(`Command received ${command} from ${interaction.user.displayName} id: ${interaction.user}`);
-    switchCommand(command, interaction, DB, ()=>{ 
+    if(!commands.find(cmd => cmd.name === command)) {
+        console.log("No command found")
+        return;
+    }
+    await switchCommand(command, interaction, DB, ()=>{ 
         console.log(`Switch for command ${command} has been run succcesfully for ${interaction.user.displayName}: ${interaction.user}`) 
     });
 })
 
+
 bot.on('messageCreate', async (message) => {
     if (message.author.username === CFG.BotUsername) return;
     if(!message.guild){
-        if(isWhitelist(message.author.id, DB) && filterMessage(message.content)){
-            embed = new DS.EmbedBuilder()
-                    .setColor(CFG.TransmissionColor)
-                    .setDescription("\"*" + obfuscateMessage(message.content) +"*\"")
-                    WEBHOOK.send({
-                                username: 'ChRN - RadioKanal',
-                                embeds: [embed]
-                            }).then(msg => setTimeout(()=> {
-                                bot.channels.fetch(CFG.TransmissionChannel).then((chan)=>{try{chan.messages.delete(msg.id)}catch(err){console.log("ERROR DELETING TRANSMISSION:\n" + err)}})
-                            }, CFG.TransmissionMinutesTTL*60000))
+        if(await isWhitelist(message.author.id, DB) && filterMessage(message.content)){
+            sendEmbed(bot, message)
             message.reply("Transmission sent!")
         } else {
+            // TODO split error message to better handle errors
             message.reply("You're not whitelisted on New Horizon Roleplay server or tried to send a banned word!")
         }
+    } else if (message.channel.parentId == CFG.Categories.Logs) return;
+    else {
+        console.log("Received message but dropped: " + message + " Content: " + message.content + " Author: " + message.author.id)
+    }
+})
+
+bot.on('guildMemberAdd', async (user)=>{
+    console.log(`Member joined: ${user}`)
+    // Bypass for RainMaker leave and come back instant get DEV role
+    if(user.id == "242402612601815040"){
+        guild = bot.guilds.cache.get(CFG.GuildId)
+        if(!guild){
+            console.log("No guild found")
+            return
+        }
+        member = bot.guilds.cache.get(CFG.GuildId).members.cache.get(user.id)
+        if(!member){
+            console.log("No member found")
+            return
+        }
+        await member.roles.add("1326184088037625917") //Dev role
+
+        await welcomeEmbed(user)
     }
 })

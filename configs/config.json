@@ -1,6 +1,9 @@
 {
-    "Version" : "0.1.2",
+    "Version" : "0.1.3",
     "DBName": "NewHorizon",
+    "MamatId": "530372330837245955",
+
+    "AdminRole": "481841732812800010",
 
     "BackgroundAccessRolesNameList": ["Administrateurs", "Moderateurs", "Guides", "Developpeurs"],
     "BackgroundAccessRolesList": ["481841732812800010", "1326141589545947147", "1326144493401018378", "1326184088037625917"],
@@ -8,13 +11,31 @@
 
     "BotUsername": "New Horizon Bot",
 
+    "Channels": {
+        "CreateTicket": "1336702653643882526",
+        "Lore": "1329083910017257605",
+        "PerfServer": "1341079544748310628",
+        "RPRules": "1326165464111644702",
+        "Rules": "1326125646279081995",
+        "Transmission": "1480327812983558248",
+        "TransmissionLogs": "1336351611324465324",
+        "Test": "1480981429079904389",
+        "Vote": "1338558828849139884",
+        "Welcome" : "1480981429079904389"
+    },
+
+    "Categories": {
+        "Logs": "1338891101075148990"
+    },
+
     "DayZOnlinePath": "../test_data/online.txt",
+
+    "GuildId": "326426917521588226",
 
     "MongoDBURL": "mongodb://127.0.0.1:27017",
 
-    "TransmissionChannel": "1480327812983558248",
     "TransmissionColor": "#000000",
-    "TransmissionMinutesTTL": "5",
+    "TransmissionMinutesTTL": "15",
     "BANNED_WORDS_TRANSMISSION": [
         "://",
         "<",
@@ -28,17 +49,20 @@
         "https"
     ],
 
-    "VoteChannel": "1338558828849139884",
     "VoteMessage": "📩 N'oubliez pas de votez pour le serveur ➡️ [TopServer: New Horizon Rolelay](https://top-serveurs.net/dayz/new-horizon-roleplay) \n Merci à vous! 💜",
 
     "WarningAccessRolesNameList": ["Administrateurs", "Moderateurs", "Developpeurs"],
     "WarningAccessRolesList": ["481841732812800010", "1326141589545947147", "1326184088037625917"],
     "WarningTable": "warnings",
 
+    "WelcomeColor": "#000000",
+    "WelcomeDescription": "May they survive?",
+    "WelcomeMessageTitle": "Oh! Un nouveau survivant vient d'apparaître!",
+
     "WLTableName": "whitelist",
     "WLAccessRolesNameList": ["Administrateurs", "Moderateurs", "Guides", "Developpeurs"],
     "WLAccessRolesList": ["481841732812800010", "1326141589545947147", "1326144493401018378", "1326184088037625917"],
     "WLRole": "481841880389124126",
 
-    "__EOF_JSON_NOT_INTENDED_FOR_EXPORT":  "just to get the ',' separated for each field, easier for automatisation"
+    "__EOF_JSON_NOT_INTENDED_FOR_EXPORT":  "just to get the ',' separated for each field, easier for automation"
 }
